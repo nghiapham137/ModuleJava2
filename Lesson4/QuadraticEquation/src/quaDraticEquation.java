@@ -1,5 +1,5 @@
 public class quaDraticEquation {
-    double a,b,c;
+    double a,b,c,delta,r1,r2;
 
     public quaDraticEquation(){
 
@@ -23,18 +23,18 @@ public class quaDraticEquation {
 //    }
 
     public double getDiscriminant() {
-        double delta = this.b * 2 - 4 * this.a * this.c;
-        return delta;
+        this.delta = Math.pow(this.b,2) - 4 * this.a * this.c;
+        return this.delta;
     }
 
     public double getRoot1() {
-        double r1 = (-this.b + Math.sqrt(this.b * this.b - 4 * this.a * this.c))/ 2 * this.a;
-        return r1;
+        this.r1 = (-this.b + Math.sqrt(delta))/ 2 * this.a;
+        return this.r1;
     }
 
     public double getRoot2() {
-        double r2 =  (-this.b - Math.sqrt(this.b * this.b - 4 * this.a * this.c))/ 2 * this.a;
-        return r2;
+        this.r2 =  (-this.b - Math.sqrt(delta))/ 2 * this.a;
+        return this.r2;
     }
 
     public String display() {
