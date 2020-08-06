@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class MyList<E> {
     private int size = 0;
     private static final int DEFAULT_CAPACITY = 10;
@@ -12,20 +14,25 @@ public class MyList<E> {
     }
 
     public void add(int index , E element) {
-        if (size < elements.length){
-        for (int i = size - 1; i >= index ; i--) {
+        if (size < elements.length)
+            addsize(index, element);
+        else    ensureCapacity(5);
+    }
+
+
+
+    private void addsize(int index, E element) {
+        for (int i = size - 1; i >= index; i--) {
             elements[i + 1] = elements[i];
         }
         elements[index] = element;
         size++;
-        }else System.out.println("Đã quá kích thước danh sách");
     }
 
-   public void ensureCapacity(int minCapacity) {
+    public void ensureCapacity(int minCapacity) {
         if (size >= elements.length) {
-            E[] newElements = (E[]) (new Object[minCapacity]);
-            System.arraycopy(elements,0,  newElements,0,size );
-            elements = newElements;
+            int newSize = elements.length + minCapacity;
+            elements = Arrays.copyOf(elements, newSize);
         }
    }
 
@@ -48,7 +55,7 @@ public class MyList<E> {
    }
 
    public boolean contains(E e) {
-       for (int i = 0; i < size; i++)
+       for (int i = 0; i < elements.length; i++)
            if (e.equals(elements[i]))
                return true;
 
@@ -56,8 +63,9 @@ public class MyList<E> {
    }
 
    public void clear() {
-        elements = (E[]) new Object[DEFAULT_CAPACITY];
-        size = 0;
+       for (int i = 0; i < elements.length; i++) {
+           elements[i] = null;
+       }
    }
 
    public int indexOf(E e) {
@@ -67,13 +75,35 @@ public class MyList<E> {
        return -1;
    }
 
-   public E clone() {
-        return (E) elements.clone();
+   public MyList(Object[] newElements ) {
+        elements = newElements;
+   }
+
+   public MyList<E> clone() {
+       E cloneArray[] = (E[]) elements.clone();
+       return new MyList<>(cloneArray);
    }
 
    public int getSize() {
-        return elements.length;
+        int count = 0;
+       for (int i = 0; i < elements.length ; i++) {
+           if (elements[i] != null)
+               count++;
+       }
+       return count;
    }
 
+   public E get(int index) {
+       for (int j = 0; j < elements.length; j++) {
+           if (j == index)
+               return (E) elements[j];
+       }
+       return (E) "ko tìm thấy";
+   }
+
+   public void sprintList() {
+        for (Object e : elements)
+            System.out.print(e + " ");
+   }
 
 }
