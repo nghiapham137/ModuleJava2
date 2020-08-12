@@ -7,6 +7,7 @@ public class InsertionSort {
             int j = i - 1;
 
             while (j >= 0 && array[j] > temp) {
+                System.out.println("Swap " + array[j] + " with " + array[j + 1]);
                 array[j + 1] = array[j];
                 j--;
             }
