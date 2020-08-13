@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class Method implements Iservices{
-    List<Product> products = new ArrayList<>();
 
     public void add(ProductManagement things) {
 
@@ -38,12 +37,9 @@ public class Method implements Iservices{
                 for (Product elements : things.list) {
                     if (id == elements.getId()) {
                         elements.setProductName(productName);
-                        break;
-                    }
-                    else {
-                        System.err.println("Ko có sản phẩm này");
                     }
                 }
+
                 break;
             case 2:
                 System.out.println("Nhập hãng sản xuất mới: ");
@@ -51,10 +47,6 @@ public class Method implements Iservices{
                 for (Product elements : things.list) {
                     if (id == elements.getId()) {
                         elements.setMaker(maker);
-                        break;
-                    }
-                    else {
-                        System.err.println("Ko có sản phẩm này");
                     }
                 }
                 break;
@@ -64,10 +56,7 @@ public class Method implements Iservices{
                 for (Product elements : things.list) {
                     if (id == elements.getId()) {
                         elements.setPrice(price);
-                        break;
-                    }
-                    else {
-                        System.err.println("Ko có sản phẩm này");
+
                     }
                 }
                 break;
@@ -77,10 +66,7 @@ public class Method implements Iservices{
                 for (Product elements : things.list) {
                     if (id == elements.getId()) {
                         elements.setDescription(description);
-                        break;
-                    }
-                    else {
-                        System.err.println("Ko có sản phẩm này");
+
                     }
                 }
                 break;
@@ -99,10 +85,7 @@ public class Method implements Iservices{
                         elements.setMaker(makers);
                         elements.setPrice(prices);
                         elements.setDescription(descriptions);
-                        break;
-                    }
-                    else {
-                        System.err.println("Ko có sản phẩm này");
+
                     }
                 }
                 break;
@@ -126,10 +109,6 @@ public class Method implements Iservices{
         for (Product element : things.list) {
             if (name.equals(element.getProductName())) {
                 System.out.println(element.toString());
-                break;
-            }else {
-                System.err.println("Ko có sản phẩm cần tìm");
-
             }
         }
 
@@ -143,10 +122,7 @@ public class Method implements Iservices{
         for (Product element : things.list) {
             if (name.equals(element.getProductName())){
                 c = element;
-                break;
-            }
-            else {
-                System.err.println("Ko có sản phẩm này");
+
             }
         }
         things.list.remove(c);
