@@ -19,11 +19,12 @@ public class CopyTextFile {
                     }
                     BufferedWriter writer = new BufferedWriter(new FileWriter(outfile));
                     writer.write(line);
-                    writer.write(count);
+
                     writer.flush();
                     writer.close();
                 }
                 System.out.println("File is copied successful");
+                System.out.println(count);
                 fileReader.close();
             }
 
