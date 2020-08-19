@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class UserStorage {
+public interface UserStorage {
+    void store(User user);
 }
