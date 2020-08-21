@@ -15,7 +15,7 @@ public class View {
         String choice;
         Scanner scanner = new Scanner(System.in);
         IOManager ioManager = new IOManager();
-        List<Word> list;
+        List<Word> list ;
         list = ioManager.readFromFile();
         Method method = new Method(list);
 

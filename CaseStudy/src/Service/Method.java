@@ -6,6 +6,9 @@ import Entities.MeaningType;
 import Entities.Word;
 import IO.IOManager;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,26 +22,55 @@ public class Method implements Iservices {
 
     Scanner scanner = new Scanner(System.in);
     IOManager ioManager = new IOManager();
-    String[] listType =  {"noun" , "adjective", "verb", "synonym", "pronunciation"};
 
     public void define() {
         System.out.println("Enter word: ");
         String name = scanner.nextLine();
         Word word = getWord(name);
-        System.out.println("Enter meaning type: ");
-        String type = scanner.nextLine();
+        String type = null;
+        doThis:
+        do {
+            System.out.println("Meaning types:");
+            System.out.println("1. Pronunciation");
+            System.out.println("2. Noun");
+            System.out.println("3. Adjective");
+            System.out.println("4. Verb");
+            System.out.println("5. Synonym");
+            System.out.println("Enter meaning type: ");
+           String choice = scanner.nextLine();
+           switch (choice) {
+               case "1" ->{type = "Pronunciation";}
+               case "2" -> type = "Noun";
+               case "3" -> type = "Adjective";
+               case "4" -> type = "Verb";
+               case "5" -> type = "Synonym";
+               default -> {System.err.println("Type is not exist");break doThis;}
+           }
+           break ;
+        } while (true );
+
         MeaningType mt = getMeaningType(word,type);
         System.out.println("Enter word's meaning: ");
         String meaning = scanner.nextLine();
         Meaning m = getMeaning(mt,meaning);
-        System.out.println("Enter meaning example: ");
-        String example = scanner.nextLine();
-        Example ex = getExample(m,example);
+        String yesOrNo = null;
+        do {
+            System.out.println("Do you want to add example?");
+            yesOrNo = scanner.nextLine();
+            if (yesOrNo.equalsIgnoreCase("n")) break;
+            System.out.println("Enter meaning example: ");
+            String example = scanner.nextLine();
+            Example ex = getExample(m,example);
+            System.out.println("Example saved");
+        } while (!yesOrNo.equalsIgnoreCase("n"));
+
         System.out.println("Saved!");
+
+
     }
     private Word getWord(String name) {
         for (Word word : list) {
-            if (name.equals(word.getName())) {
+            if (name.equalsIgnoreCase(word.getName())) {
                 return word;
             }
         }
@@ -85,7 +117,7 @@ public class Method implements Iservices {
         System.out.println("Enter word: ");
         String searchWord = scanner.nextLine();
         for (Word word : list) {
-            if (searchWord.equals(word.getName())){
+            if (searchWord.equalsIgnoreCase(word.getName())){
                 System.out.println(word);
                 System.out.println();
                 return;
@@ -109,12 +141,19 @@ public class Method implements Iservices {
     }
 
     public void export() {
-        ioManager.writeToFile(list);
-        System.out.println("Exporting...");
-        for (int i = 0; i <= 100 ; i += 10) {
-            System.out.print(i + "%");
+        System.out.println("Enter a word ");
+        String wordWantToExport = scanner.nextLine();
+        for (Word word : list) {
+            if (wordWantToExport.equals(word.getName())) {
+                try {
+                    FileWriter writer = new FileWriter(word.getName() + ".txt");
+                    writer.write(word.toString());
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        System.out.println("Done");
     }
 
     public void show() {
@@ -123,5 +162,8 @@ public class Method implements Iservices {
             System.out.println();
         }
     }
+//
+//    type = "Noun";
+//
 
 }

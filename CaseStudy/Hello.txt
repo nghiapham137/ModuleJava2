@@ -1,0 +1,4 @@
+@ Hello
+*  Noun
+- Xin chào
+= Hello Everyone - Xin chào mọi người
