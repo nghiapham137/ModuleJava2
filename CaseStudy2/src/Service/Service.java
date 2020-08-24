@@ -7,36 +7,121 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Service implements I_Service{
-//    List<Officer> list = OfficersManagement.list;
+
     List<Officer> list = new ArrayList<>();
-    int countID = 0;
+    public Service(List<Officer> list) {
+        this.list = list;
+    }
+
     Scanner scanner = new Scanner(System.in);
+
+
     public void add() {
-        System.out.println("nhập tên cán bộ: ");
-        String name = scanner.nextLine();
-        System.out.println("Nhập giới tính: ");
-        String sex = scanner.nextLine();
-        System.out.println("Nhập quê quán: ");
-        String homeTown = scanner.nextLine();
-        System.out.println("Nhập năm sinh: ");
-        int yearOfBirth = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập chuyên môn: ");
-        String specialize = scanner.nextLine();
-        System.out.println("Nhập trình độ: ");
-        String level = scanner.nextLine();
-        System.out.println("Nhập hệ số lương: ");
-        Double coefficientsSalary = Double.parseDouble(scanner.nextLine());
-        System.out.println("Nhập phụ cấp trách nhiệm: ");
-        Double responsibilityAllowance = Double.parseDouble(scanner.nextLine());
-        System.out.println("Nhập phụ cấp ăn trưa: ");
-        Double lunchBenefit = Double.parseDouble(scanner.nextLine());
-        System.out.println("Nhập năm tăng lương: ");
-        int yearOfSalaryIncrease = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập xếp loại lao động: ");
-        String laborClassification = scanner.nextLine();
-//        int id = ++OfficersManagement.id;
-        int id = ++countID;
-        list.add(new Officer(id,name,sex,homeTown,yearOfBirth,specialize,level,coefficientsSalary,responsibilityAllowance,lunchBenefit,yearOfSalaryIncrease,laborClassification));
+        String name;
+        do {
+            System.out.println("nhập tên cán bộ: ");
+            name = scanner.nextLine();
+            if (name.equals("")) System.out.println("Không được để trống!");
+            else break;
+        }while (true);
+
+        String gender;
+        do {
+            System.out.println("Nhập giới tính: ");
+            gender = scanner.nextLine();
+            if (gender.equals("")) System.out.println("Không được để trống!");
+            else break;
+        }while (true);
+
+        String homeTown;
+        do {
+            System.out.println("Nhập quê quán: ");
+            homeTown = scanner.nextLine();
+            if (homeTown.equals("")) System.out.println("Không được để trống!");
+            else break;
+        }while (true);
+
+        int yearOfBirth;
+        do {
+            System.out.println("Nhập năm sinh(yyyy): ");
+            try {
+                yearOfBirth = Integer.parseInt(scanner.nextLine());
+                if (yearOfBirth > 0) break;
+            } catch (Exception ignored) {
+                System.out.println("Nhập sai định dạng năm");
+            }
+        }while (true);
+
+        String specialize;
+        do {
+            System.out.println("Nhập chuyên môn: ");
+            specialize = scanner.nextLine();
+            if (specialize.equals("")) System.out.println("Không được để trống");
+            else break;
+        }while (true);
+
+        String level;
+        do {
+            System.out.println("Nhập trình độ: ");
+            level = scanner.nextLine();
+            if (level.equals("")) System.out.println("Không được để trống");
+            else break;
+        }while (true);
+
+        double coefficientsSalary;
+        do {
+            System.out.println("Nhập hệ số lương(0.1 -> 14.9): ");
+            try {
+                coefficientsSalary = Double.parseDouble(scanner.nextLine());
+                if (coefficientsSalary > 0 && coefficientsSalary < 15) break;
+            } catch (Exception ignored) {
+                System.out.println("Nhập không hợp lệ");
+            }
+        }while (true);
+
+        double responsibilityAllowance;
+        do {
+            System.out.println("Nhập phụ cấp trách nhiệm(0.1 -> 2.0): ");
+            try {
+                responsibilityAllowance = Double.parseDouble(scanner.nextLine());
+                if (responsibilityAllowance > 0 && responsibilityAllowance <= 2.0 ) break;
+            } catch (Exception ignored) {
+                System.out.println("Nhập không hợp lệ");
+            }
+        }while (true);
+
+        double lunchBenefit;
+        do {
+            System.out.println("Nhập phụ cấp ăn trưa(0 -> 100000): ");
+            try {
+                lunchBenefit = Double.parseDouble(scanner.nextLine());
+                if (lunchBenefit > 0 && lunchBenefit <= 100000) break;
+            } catch (Exception ignored) {
+                System.out.println("Nhập không hợp lệ");
+            }
+        }while (true);
+
+        int yearOfSalaryIncrease;
+        do {
+            System.out.println("Nhập năm tăng lương(yyyy): ");
+            try {
+                yearOfSalaryIncrease = Integer.parseInt(scanner.nextLine());
+                if (yearOfSalaryIncrease > 0) break;
+            } catch (Exception ignored) {
+                System.out.println("Nhập không hợp lệ");
+            }
+        }while (true);
+
+        String laborClassification;
+        do {
+            System.out.println("Nhập xếp loại lao động: ");
+            laborClassification = scanner.nextLine();
+            if (laborClassification.equals("")) System.out.println("Không được để trống");
+            else break;
+        }while (true);
+
+        int id = 0;
+        list.add(new Officer(++id,name,gender,homeTown,yearOfBirth,specialize,level,coefficientsSalary,responsibilityAllowance,lunchBenefit,yearOfSalaryIncrease,laborClassification));
         System.out.println();
         System.out.println("Thêm cán bộ thành công!");
         System.out.println();

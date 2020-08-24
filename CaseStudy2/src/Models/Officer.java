@@ -1,6 +1,8 @@
 package Models;
 
-public class Officer {
+import java.io.Serializable;
+
+public class Officer implements Serializable {
     private static final int BASIC_PAY = 450000;
     private int officerId;
     private String fullName;

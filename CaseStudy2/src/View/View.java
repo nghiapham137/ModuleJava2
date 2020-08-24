@@ -11,10 +11,10 @@ import java.util.Scanner;
 public class View {
     public static void main(String[] args) throws Exception {
         IOManager ioManager = new IOManager();
-        List<Officer> list;
+        List<Officer> list ;
         list = ioManager.readFromFile();
 
-        Service service = new Service();
+        Service service = new Service(list);
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Main menu");
