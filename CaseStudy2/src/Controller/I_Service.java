@@ -5,6 +5,6 @@ public interface I_Service {
     void show() throws Exception;
     void search();
     void getTotalIncome();
-    void update();
+    void update() throws Exception;
     void remove();
 }

@@ -15,10 +15,10 @@ public class Officer {
     private float salary;
     private int yearOfSalaryIncrease;
     private String laborClassification;
-    private int countID = 0;
+//    private int countID = 0;
 
 
-    public Officer( String fullName, String sex, String homeTown,
+    public Officer(int officerId, String fullName, String sex, String homeTown,
                    int yearOfBirth, String specialize, String level, float coefficientsSalary,
                    float responsibilityAllowance, float lunchBenefit, int yearOfSalaryIncrease, String laborClassification ) {
         this.fullName = fullName;
@@ -32,7 +32,7 @@ public class Officer {
         this.lunchBenefit = lunchBenefit;
         this.yearOfSalaryIncrease = yearOfSalaryIncrease;
         this.laborClassification = laborClassification;
-        this.officerId = ++this.countID;
+        this.officerId = officerId;
         this.salary = (coefficientsSalary + responsibilityAllowance) * BASIC_PAY + lunchBenefit;
     }
 
