@@ -1,11 +1,19 @@
 package View;
 
-import Controller.Service;
+import IOManagement.IOManager;
+import Models.Officer;
+import Service.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class View {
     public static void main(String[] args) throws Exception {
+        IOManager ioManager = new IOManager();
+        List<Officer> list;
+        list = ioManager.readFromFile();
+
         Service service = new Service();
         Scanner scanner = new Scanner(System.in);
         do {
@@ -39,6 +47,7 @@ public class View {
                     service.remove();
                     break;
                 case 0:
+                    ioManager.writeToFile(list);
                     System.exit(0);
                 default:
                     throw new Exception("Không có chức năng này");

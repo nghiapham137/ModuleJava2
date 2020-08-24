@@ -4,25 +4,25 @@ public class Officer {
     private static final int BASIC_PAY = 450000;
     private int officerId;
     private String fullName;
-    private String sex;
+    private String gender;
     private String homeTown;
     private int yearOfBirth;
     private String specialize;
     private String level;
-    private float coefficientsSalary;
-    private float responsibilityAllowance;
-    private float lunchBenefit;
-    private float salary;
+    private double coefficientsSalary;
+    private double responsibilityAllowance;
+    private double lunchBenefit;
+    private double salary;
     private int yearOfSalaryIncrease;
     private String laborClassification;
-//    private int countID = 0;
 
 
-    public Officer(int officerId, String fullName, String sex, String homeTown,
-                   int yearOfBirth, String specialize, String level, float coefficientsSalary,
-                   float responsibilityAllowance, float lunchBenefit, int yearOfSalaryIncrease, String laborClassification ) {
+
+    public Officer(int officerId, String fullName, String gender, String homeTown,
+                   int yearOfBirth, String specialize, String level, double coefficientsSalary,
+                   double responsibilityAllowance, double lunchBenefit, int yearOfSalaryIncrease, String laborClassification ) {
         this.fullName = fullName;
-        this.sex = sex;
+        this.gender = gender;
         this.homeTown = homeTown;
         this.yearOfBirth = yearOfBirth;
         this.specialize = specialize;
@@ -44,12 +44,12 @@ public class Officer {
         this.fullName = fullName;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getHomeTown() {
@@ -84,27 +84,27 @@ public class Officer {
         this.level = level;
     }
 
-    public float getCoefficientsSalary() {
+    public double getCoefficientsSalary() {
         return coefficientsSalary;
     }
 
-    public void setCoefficientsSalary(float coefficientsSalary) {
+    public void setCoefficientsSalary(double coefficientsSalary) {
         this.coefficientsSalary = coefficientsSalary;
     }
 
-    public float getResponsibilityAllowance() {
+    public double getResponsibilityAllowance() {
         return responsibilityAllowance;
     }
 
-    public void setResponsibilityAllowance(float responsibilityAllowance) {
+    public void setResponsibilityAllowance(double responsibilityAllowance) {
         this.responsibilityAllowance = responsibilityAllowance;
     }
 
-    public float getLunchBenefit() {
+    public double getLunchBenefit() {
         return lunchBenefit;
     }
 
-    public void setLunchBenefit(float lunchBenefit) {
+    public void setLunchBenefit(double lunchBenefit) {
         this.lunchBenefit = lunchBenefit;
     }
 
@@ -129,14 +129,14 @@ public class Officer {
         return officerId;
     }
 
-    public float getSalary() {
+    public double getSalary() {
         return salary ;
     }
 
     public String toString() {
         return "Nhân viên: " + fullName + "\n"
                 + "Id: " + officerId + "\n"
-                + "Giới tính: " + sex + "\n"
+                + "Giới tính: " + gender + "\n"
                 + "Quê quán: " + homeTown + "\n"
                 + "Năm sinh: " + yearOfBirth + "\n"
                 + "Chuyên môn: " + specialize + "\n"
@@ -146,6 +146,6 @@ public class Officer {
                 + "Phụ cấp ăn trưa: " + lunchBenefit + "\n"
                 + "Lương tháng: " + salary + "\n"
                 + "Năm tăng lương: " + yearOfSalaryIncrease + "\n"
-                + "Xếp loại lao động: " + laborClassification;
+                + "Xếp loại lao động: " + laborClassification + "\n";
     }
 }

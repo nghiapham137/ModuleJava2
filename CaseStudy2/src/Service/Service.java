@@ -1,18 +1,18 @@
-package Controller;
+package Service;
 
 import Models.Officer;
-import Models.OfficersManagement;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Service implements I_Service{
-    List<Officer> list = OfficersManagement.list;
-
+//    List<Officer> list = OfficersManagement.list;
+    List<Officer> list = new ArrayList<>();
+    int countID = 0;
     Scanner scanner = new Scanner(System.in);
     public void add() {
-        System.out.println("nhập tên nhân viên: ");
+        System.out.println("nhập tên cán bộ: ");
         String name = scanner.nextLine();
         System.out.println("Nhập giới tính: ");
         String sex = scanner.nextLine();
@@ -25,18 +25,21 @@ public class Service implements I_Service{
         System.out.println("Nhập trình độ: ");
         String level = scanner.nextLine();
         System.out.println("Nhập hệ số lương: ");
-        Float coefficientsSalary = Float.parseFloat(scanner.nextLine());
+        Double coefficientsSalary = Double.parseDouble(scanner.nextLine());
         System.out.println("Nhập phụ cấp trách nhiệm: ");
-        Float responsibilityAllowance = Float.parseFloat(scanner.nextLine());
+        Double responsibilityAllowance = Double.parseDouble(scanner.nextLine());
         System.out.println("Nhập phụ cấp ăn trưa: ");
-        Float lunchBenefit = Float.parseFloat(scanner.nextLine());
+        Double lunchBenefit = Double.parseDouble(scanner.nextLine());
         System.out.println("Nhập năm tăng lương: ");
         int yearOfSalaryIncrease = Integer.parseInt(scanner.nextLine());
         System.out.println("Nhập xếp loại lao động: ");
         String laborClassification = scanner.nextLine();
-        int id = ++OfficersManagement.id;
+//        int id = ++OfficersManagement.id;
+        int id = ++countID;
         list.add(new Officer(id,name,sex,homeTown,yearOfBirth,specialize,level,coefficientsSalary,responsibilityAllowance,lunchBenefit,yearOfSalaryIncrease,laborClassification));
-        System.out.println("Thêm nhân viên thành công");
+        System.out.println();
+        System.out.println("Thêm cán bộ thành công!");
+        System.out.println();
     }
 
     public void show() throws Exception {
@@ -49,7 +52,6 @@ public class Service implements I_Service{
             System.out.println("3. Hiển thị các bộ theo giới tính");
             System.out.println("4. Hiển thị cán bộ theo chuyên môn");
             System.out.println("5. Hiển thị cán bộ theo xếp loại lao động");
-            System.out.println("0. Thoát chức năng");
             System.out.println("Nhập lựa chọn: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
@@ -62,7 +64,7 @@ public class Service implements I_Service{
                     showOfficersByYearOfSalaryIncrease();
                     break;
                 case 3:
-                    showOfficersBySex();
+                    showOfficersByGender();
                     break;
                 case 4:
                     showOfficersBySpecialize();
@@ -74,7 +76,7 @@ public class Service implements I_Service{
                     throw new Exception("Không có chức năng này");
             }
 
-            System.out.println("Bạn có muốn sử dụng tiếp chức năng này?");
+            System.out.println("Bạn có muốn sử dụng tiếp chức năng này? y/n");
             yesOrNo = scanner.nextLine();
             if (yesOrNo.equalsIgnoreCase("n")) break;
         }while (!yesOrNo.equalsIgnoreCase("n"));
@@ -94,20 +96,23 @@ public class Service implements I_Service{
     }
 
     public void getTotalIncome() {
-
+        double totalIncome = 0;
+        for (Officer officer : list) {
+            totalIncome += officer.getSalary();
+        }
+        System.out.println("Tổng thu nhập của toàn bộ cán bộ trong danh sách là: ");
+        System.out.println(totalIncome + "VND");
+        System.out.println();
     }
 
     public void update() throws Exception {
-        System.out.println("Nhập id nhân viên: ");
+        System.out.println("Nhập id cán bộ: ");
         int officerID = Integer.parseInt(scanner.nextLine());
         for (Officer officer : list) {
             if (officerID == officer.getOfficerId()) {
                 String yesOrNo = null;
                 do {
-                    System.out.println("Bạn có muốn tiếp tục chỉnh sửa: ");
-                    yesOrNo = scanner.nextLine();
-                    if (yesOrNo.equalsIgnoreCase("n")) break;
-                    System.out.println("1. Chỉnh sửa tên nhân viên");
+                    System.out.println("1. Chỉnh sửa tên cán bộ");
                     System.out.println("2. Chỉnh sửa giới tính");
                     System.out.println("3. Chỉnh sửa quê quán");
                     System.out.println("4. Chỉnh sửa năm sinh");
@@ -122,14 +127,14 @@ public class Service implements I_Service{
                     int choice = Integer.parseInt(scanner.nextLine());
                     switch (choice) {
                         case 1:
-                            System.out.println("Nhập tên nhân viên: ");
+                            System.out.println("Nhập tên cán bộ: ");
                             String name = scanner.nextLine();
                             officer.setFullName(name);
                             break;
                         case 2:
                             System.out.println("Nhập giới tính: ");
-                            String sex = scanner.nextLine();
-                            officer.setSex(sex);
+                            String gender = scanner.nextLine();
+                            officer.setGender(gender);
                             break;
                         case 3:
                             System.out.println("Nhập quê quán: ");
@@ -153,17 +158,17 @@ public class Service implements I_Service{
                             break;
                         case 7:
                             System.out.println("Nhập hệ số lương: ");
-                            Float coefficientSalary = Float.parseFloat(scanner.nextLine());
+                            Double coefficientSalary = Double.parseDouble(scanner.nextLine());
                             officer.setCoefficientsSalary(coefficientSalary);
                             break;
                         case 8:
                             System.out.println("Nhập phụ cấp trách nhiệm: ");
-                            Float responsibilitySalary = Float.parseFloat(scanner.nextLine());
+                            Double responsibilitySalary = Double.parseDouble(scanner.nextLine());
                             officer.setResponsibilityAllowance(responsibilitySalary);
                             break;
                         case 9:
                             System.out.println("Nhập phụ cấp ăn trưa: ");
-                            Float lunchBenefit = Float.parseFloat(scanner.nextLine());
+                            Double lunchBenefit = Double.parseDouble(scanner.nextLine());
                             officer.setLunchBenefit(lunchBenefit);
                             break;
                         case 10:
@@ -179,6 +184,9 @@ public class Service implements I_Service{
                         default:
                             throw new Exception("Chức năng này không có");
                     }
+                    System.out.println("Bạn có muốn tiếp tục chỉnh sửa? y/n ");
+                    yesOrNo = scanner.nextLine();
+                    if (yesOrNo.equalsIgnoreCase("n")) break;
                 }while (!yesOrNo.equalsIgnoreCase("n"));
 
             }
@@ -187,12 +195,19 @@ public class Service implements I_Service{
     }
 
     public void remove() {
-
+        System.out.println("Nhập ID cán bộ muốn xóa: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        for (Officer officer : list) {
+            if (id == officer.getOfficerId()) {
+                list.remove(officer);
+                System.out.println("Xóa thành công!");
+            }
+        }
     }
 
     private void showAll() {
         for (Officer officer : list) {
-            System.out.println("Nhân viên: " + officer.getFullName() + " ,ID: " + officer.getOfficerId());
+            System.out.println("ID: " + officer.getOfficerId() + " " +" "+" " + "Cán bộ: " + officer.getFullName());
         }
     }
 
@@ -202,50 +217,64 @@ public class Service implements I_Service{
         int year = Integer.parseInt(scanner.nextLine());
         for (Officer officer : list) {
             if (year == officer.getYearOfSalaryIncrease()) {
-                System.out.println("Nhân viên: " + officer.getFullName() + ", ID: " + officer.getOfficerId() + ", Năm tăng lương: " + officer.getYearOfSalaryIncrease());
+                System.out.println("ID: " + officer.getOfficerId() + " " +" "+" " +"Cán bộ: " + officer.getFullName()
+                        + " " +" "+" " + "Năm tăng lương: " + officer.getYearOfSalaryIncrease());
             }else {
                 count++;
             }
         }
         if (count == list.size()) {
-            System.out.println("Không có nhân viên nào đến thời điểm tăng lương này");
+            System.out.println("Không có cán bộ nào đến thời điểm tăng lương này");
         }
 //
     }
 
-    private void showOfficersBySex() {
-        System.out.println("Nhập vào giới tính của nhân viên: ");
-        String sex = scanner.nextLine();
+    private void showOfficersByGender() {
+        int count = 0;
+        System.out.println("Nhập vào giới tính của cán bộ: ");
+        String gender = scanner.nextLine();
         for (Officer officer : list) {
-            if (sex.equals(officer.getSex())) {
-                System.out.println("Nhân viên: " + officer.getFullName() + ", ID: " + officer.getOfficerId() + ", Giới tính: " + officer.getSex());
-                return;
-            }
+            if (gender.equalsIgnoreCase(officer.getGender())) {
+                System.out.println("ID: " + officer.getOfficerId() + " " +" "+" " + "Cán bộ: "
+                        + officer.getFullName() + " " +" "+" " + "Giới tính: " + officer.getGender());
+            }else count++;
         }
-        System.out.println("Không có nhân viên nào thuộc giới tính này");
+        if (count == list.size()) {
+            System.out.println("Không có cán bộ nào thuộc giới tính này");
+        }
+
     }
 
     private void showOfficersBySpecialize() {
-        System.out.println("Nhập vào chuyên môn của nhân viên: ");
+        int count = 0;
+        System.out.println("Nhập vào chuyên môn của các bộ: ");
         String specialize = scanner.nextLine();
         for (Officer officer : list) {
-            if (specialize.equals(officer.getSpecialize())) {
-                System.out.println("Nhân viên: " + officer.getFullName() + ", ID: " + officer.getOfficerId() + ", Chuyên môn: " + officer.getSpecialize());
-                return;
-            }
+            if (specialize.equalsIgnoreCase(officer.getSpecialize())) {
+                System.out.println("ID: " + officer.getOfficerId() +" " +" "+" " +
+                        "Cán bộ: " + officer.getFullName() +" " +" "+" " +  "Chuyên môn: " + officer.getSpecialize());
+            } else count++;
         }
-        System.out.println("Không tìm thấy nhân viên nào thuộc chuyên ngành này");
+        if (count == list.size()) {
+            System.out.println("Không tìm thấy cán bộ nào thuộc chuyên ngành này");
+        }
+
     }
 
     private void showOfficersByLaborClassification() {
+        int count = 0;
         System.out.println("Nhập xếp loại lao động: ");
         String laborClassification = scanner.nextLine();
         for (Officer officer : list) {
-            if (laborClassification.equals(officer.getLaborClassification())) {
-                System.out.println("Nhân viên: " + officer.getFullName() + ", ID: " + officer.getOfficerId() + ", Xếp loại: " + officer.getLaborClassification());
-                return;
-            }
+            if (laborClassification.equalsIgnoreCase(officer.getLaborClassification())) {
+                System.out.println("ID: " + officer.getOfficerId() +" " +" "+" " +
+                        "Cán bộ: " + officer.getFullName() +" " +" "+" " +
+                        "Xếp loại: " + officer.getLaborClassification());
+            } else count++;
         }
-        System.out.println("Không có nhân viên nào thuộc xếp loại này");
+        if (count == list.size()) {
+            System.out.println("Không có cán bộ nào thuộc xếp loại này");
+        }
+
     }
 }

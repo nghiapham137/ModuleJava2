@@ -1,4 +1,4 @@
-package Controller;
+package Service;
 
 public interface I_Service {
     void add();
