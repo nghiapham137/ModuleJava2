@@ -47,9 +47,8 @@ public class Service implements I_Service{
             try {
                 yearOfBirth = Integer.parseInt(scanner.nextLine());
                 if (yearOfBirth > 0) break;
-            } catch (Exception ignored) {
-                System.out.println("Nhập sai định dạng năm");
-            }
+            } catch (Exception ignored) {}
+            System.out.println("Nhập sai định dạng năm");
         }while (true);
 
         String specialize;
@@ -74,9 +73,8 @@ public class Service implements I_Service{
             try {
                 coefficientsSalary = Double.parseDouble(scanner.nextLine());
                 if (coefficientsSalary > 0 && coefficientsSalary < 15) break;
-            } catch (Exception ignored) {
-                System.out.println("Nhập không hợp lệ");
-            }
+            } catch (Exception ignored) {}
+            System.out.println("Nhập không hợp lệ");
         }while (true);
 
         double responsibilityAllowance;
@@ -85,9 +83,8 @@ public class Service implements I_Service{
             try {
                 responsibilityAllowance = Double.parseDouble(scanner.nextLine());
                 if (responsibilityAllowance > 0 && responsibilityAllowance <= 2.0 ) break;
-            } catch (Exception ignored) {
-                System.out.println("Nhập không hợp lệ");
-            }
+            } catch (Exception ignored) {}
+            System.out.println("Nhập không hợp lệ");
         }while (true);
 
         double lunchBenefit;
@@ -96,9 +93,8 @@ public class Service implements I_Service{
             try {
                 lunchBenefit = Double.parseDouble(scanner.nextLine());
                 if (lunchBenefit > 0 && lunchBenefit <= 100000) break;
-            } catch (Exception ignored) {
-                System.out.println("Nhập không hợp lệ");
-            }
+            } catch (Exception ignored) {}
+            System.out.println("Nhập không hợp lệ");
         }while (true);
 
         int yearOfSalaryIncrease;
@@ -107,9 +103,8 @@ public class Service implements I_Service{
             try {
                 yearOfSalaryIncrease = Integer.parseInt(scanner.nextLine());
                 if (yearOfSalaryIncrease > 0) break;
-            } catch (Exception ignored) {
-                System.out.println("Nhập không hợp lệ");
-            }
+            } catch (Exception ignored) {}
+            System.out.println("Nhập không hợp lệ");
         }while (true);
 
         String laborClassification;
@@ -120,7 +115,7 @@ public class Service implements I_Service{
             else break;
         }while (true);
 
-        int id = 0;
+        int id = checkId();
         list.add(new Officer(++id,name,gender,homeTown,yearOfBirth,specialize,level,coefficientsSalary,responsibilityAllowance,lunchBenefit,yearOfSalaryIncrease,laborClassification));
         System.out.println();
         System.out.println("Thêm cán bộ thành công!");
@@ -161,16 +156,24 @@ public class Service implements I_Service{
                     throw new Exception("Không có chức năng này");
             }
 
-            System.out.println("Bạn có muốn sử dụng tiếp chức năng này? y/n");
+            System.out.println("Ấn 0 để thoát, ấn phím bất kỳ để tiếp tục:");
             yesOrNo = scanner.nextLine();
-            if (yesOrNo.equalsIgnoreCase("n")) break;
-        }while (!yesOrNo.equalsIgnoreCase("n"));
+            if (yesOrNo.equalsIgnoreCase("0")) break;
+        }while (!yesOrNo.equalsIgnoreCase("0"));
 
     }
 
     public void search() {
-        System.out.println("Nhập id cán bộ muốn tìm kiếm: ");
-        int officerID = Integer.parseInt(scanner.nextLine());
+        int officerID;
+        do {
+            System.out.println("Nhập id cán bộ muốn tìm kiếm: ");
+            try {
+                officerID = Integer.parseInt(scanner.nextLine());
+                if (officerID > 0) break;
+            } catch (Exception ignored) {}
+            System.out.println("Nhập không hợp lệ");
+        }while (true);
+
         for (Officer officer : list) {
             if (officerID == officer.getOfficerId()) {
                 System.out.println(officer.toString());
@@ -186,13 +189,21 @@ public class Service implements I_Service{
             totalIncome += officer.getSalary();
         }
         System.out.println("Tổng thu nhập của toàn bộ cán bộ trong danh sách là: ");
-        System.out.println(totalIncome + "VND");
+        System.out.printf("%.0f VND",totalIncome);
         System.out.println();
     }
 
     public void update() throws Exception {
-        System.out.println("Nhập id cán bộ: ");
-        int officerID = Integer.parseInt(scanner.nextLine());
+        int officerID;
+        do {
+            System.out.println("Nhập id cán bộ: ");
+            try {
+                officerID = Integer.parseInt(scanner.nextLine());
+                if (officerID > 0) break;
+            } catch (Exception ignored) {}
+            System.out.println("Nhập không hợp lệ");
+        }while (true);
+
         for (Officer officer : list) {
             if (officerID == officer.getOfficerId()) {
                 String yesOrNo = null;
@@ -269,13 +280,14 @@ public class Service implements I_Service{
                         default:
                             throw new Exception("Chức năng này không có");
                     }
-                    System.out.println("Bạn có muốn tiếp tục chỉnh sửa? y/n ");
+                    System.out.println("Ấn 0 để thoát, ấn phím bất kỳ để tiếp tục");
                     yesOrNo = scanner.nextLine();
-                    if (yesOrNo.equalsIgnoreCase("n")) break;
-                }while (!yesOrNo.equalsIgnoreCase("n"));
-
+                    if (yesOrNo.equalsIgnoreCase("0")) break;
+                }while (!yesOrNo.equalsIgnoreCase("0"));
+                return;
             }
         }
+        System.out.println("Không có cán bộ nào mang Id này");
 
     }
 
@@ -361,5 +373,15 @@ public class Service implements I_Service{
             System.out.println("Không có cán bộ nào thuộc xếp loại này");
         }
 
+    }
+
+    private int checkId() {
+        int countID = 0;
+        for (Officer officer : list) {
+            if (officer.getOfficerId() > countID) {
+                countID = officer.getOfficerId();
+            }
+        }
+        return countID;
     }
 }
