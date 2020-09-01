@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IOManager{
-//    List<Word> list = new ArrayList<>();
-
     public void writeToFile(List<Word> arrayList) {
         ObjectOutputStream outputStream;
         try {
@@ -26,15 +24,18 @@ public class IOManager{
         try {
             FileInputStream fileInputStream = new FileInputStream("data.dat");
             inputStream = new ObjectInputStream(fileInputStream);
-             List<Word> arr = (List<Word>) inputStream.readObject();
+            List<Word> arr;
+            try {
+                arr = (List<Word>) inputStream.readObject();
+            } catch (Exception e){
+                arr = new ArrayList<>();
+            }
              inputStream.close();
              return arr;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;

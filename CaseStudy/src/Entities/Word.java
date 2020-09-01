@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Word implements Serializable {
+public class Word implements Serializable, Comparable<Word> {
     private String name;
     private List<MeaningType> list;
 
@@ -33,16 +33,19 @@ public class Word implements Serializable {
     public void addMeaningType(MeaningType type) {
         list.add(type);
     }
-
+    
 
     public String toString() {
 
         StringBuilder string = new StringBuilder("@ " + name + "\n");
         for (MeaningType type : list) {
             string.append(type.toString());
-//            System.out.println();
         }
         return string.toString();
+    }
+
+    public int compareTo(Word word) {
+        return name.compareToIgnoreCase(word.getName());
     }
 
 }

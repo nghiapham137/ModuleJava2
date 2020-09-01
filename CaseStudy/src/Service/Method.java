@@ -4,13 +4,10 @@ import Entities.Example;
 import Entities.Meaning;
 import Entities.MeaningType;
 import Entities.Word;
-import IO.IOManager;
-
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +18,7 @@ public class Method implements Iservices {
     }
 
     Scanner scanner = new Scanner(System.in);
-    IOManager ioManager = new IOManager();
+//    IOManager ioManager = new IOManager();
 
     public void define() {
         System.out.println("Enter word: ");
@@ -66,7 +63,7 @@ public class Method implements Iservices {
 
         System.out.println("Saved!");
 
-
+        Collections.sort(list);
     }
     private Word getWord(String name) {
         for (Word word : list) {
@@ -113,7 +110,8 @@ public class Method implements Iservices {
         return wordExample;
     }
 
-    public void search() {
+    public void search()
+    {
         System.out.println("Enter word: ");
         String searchWord = scanner.nextLine();
         for (Word word : list) {
@@ -131,7 +129,7 @@ public class Method implements Iservices {
         System.out.println("Enter word: ");
         String wordWantToRemove = scanner.nextLine();
         for (Word word : list) {
-            if (wordWantToRemove.equals(word.getName())){
+            if (wordWantToRemove.equalsIgnoreCase(word.getName())){
                 list.remove(word);
                 System.out.println("Done!");
                 return;
@@ -144,7 +142,7 @@ public class Method implements Iservices {
         System.out.println("Enter a word ");
         String wordWantToExport = scanner.nextLine();
         for (Word word : list) {
-            if (wordWantToExport.equals(word.getName())) {
+            if (wordWantToExport.equalsIgnoreCase(word.getName())) {
                 try {
                     FileWriter writer = new FileWriter(word.getName() + ".txt");
                     writer.write(word.toString());
@@ -162,8 +160,6 @@ public class Method implements Iservices {
             System.out.println();
         }
     }
-//
-//    type = "Noun";
-//
+
 
 }
