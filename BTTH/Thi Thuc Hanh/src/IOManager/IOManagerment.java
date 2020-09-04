@@ -13,6 +13,7 @@ public class IOManagerment implements Serializable{
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(list);
             objectOutputStream.close();
+            System.out.println("Đã lưu file thành công!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -22,17 +23,15 @@ public class IOManagerment implements Serializable{
         try {
             FileInputStream fileInputStream = new FileInputStream("Employee.dat");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            List<Employee> list;
-            try {
-                list = (List<Employee>) objectInputStream.readObject();
-            } catch (Exception e) {
-                list = new ArrayList<>();
-            }
+            List<Employee> list = (List<Employee>) objectInputStream.readObject();
+
             objectInputStream.close();
             return list;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Không tìm thấy file");
         } catch (IOException e) {
+            System.out.println("Không tìm thấy dữ liệu");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;

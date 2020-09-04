@@ -3,6 +3,7 @@ package View;
 import IOManager.IOManagerment;
 import Method.Service;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -10,6 +11,9 @@ public class MainMenu {
         Service service = new Service();
         Scanner scanner = new Scanner(System.in);
         Service.list = IOManagerment.readFromFile();
+        if (Service.list == null) {
+            Service.list = new ArrayList<>();
+        }
         do {
             System.out.println("------------------Main Menu-----------------");
             System.out.println("1. Thêm nhân viên");
