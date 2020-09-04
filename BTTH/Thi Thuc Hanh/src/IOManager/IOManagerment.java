@@ -1,39 +1,40 @@
 package IOManager;
 
+import Models.Employee;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IOManagement {
-    public void writeToFile(List<Object> arrayList) {
+public class IOManagerment implements Serializable{
+    public static void writeToFile(List<Employee> list) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("data.dat");
+            FileOutputStream fileOutputStream = new FileOutputStream("Employee.dat");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(arrayList);
+            objectOutputStream.writeObject(list);
             objectOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Object> readFromFile() {
+    public static List<Employee> readFromFile() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("Officer.dat");
+            FileInputStream fileInputStream = new FileInputStream("Employee.dat");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            List<Object> arrayList;
+            List<Employee> list;
             try {
-                arrayList = (List<Object>) objectInputStream.readObject();
+                list = (List<Employee>) objectInputStream.readObject();
             } catch (Exception e) {
-                arrayList = new ArrayList<>();
+                list = new ArrayList<>();
             }
             objectInputStream.close();
-            return arrayList;
+            return list;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
-
     }
 }
